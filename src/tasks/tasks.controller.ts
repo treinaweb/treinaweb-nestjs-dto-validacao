@@ -6,16 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  ValidationPipe,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
+import { CreateTaskDto } from './dto/create-task.dto';
+import { UpdateTaskDto } from './dto/update-task.dto';
 
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
   @Post()
-  create(@Body() request) {
-    return this.tasksService.create(request);
+  create(@Body() createTaskDto: CreateTaskDto) {
+    return this.tasksService.create(createTaskDto);
   }
 
   @Get()
@@ -34,5 +37,10 @@ export class TasksController {
   @Get('status/:status')
   findByStatus(@Param('status') status: boolean) {
     return this.tasksService.findByStatus(status);
+  }
+
+  @Patch('update/:id')
+  update(@Body() updateTaskDto: UpdateTaskDto, @Param('id') id: number) {
+    return this.tasksService.update(id, updateTaskDto);
   }
 }

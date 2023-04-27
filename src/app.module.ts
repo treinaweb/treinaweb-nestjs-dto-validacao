@@ -11,7 +11,7 @@ import { TasksModule } from './tasks/tasks.module';
       port: 3306,
       username: 'root',
       password: 'treinaweb',
-      database: 'dp-repositorio',
+      database: 'dp-dto',
       entities: [join(__dirname, '**/*entity.{ts,js}')],
       synchronize: true,
     }),
