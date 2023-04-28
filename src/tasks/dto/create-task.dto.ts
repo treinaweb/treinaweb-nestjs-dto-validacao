@@ -1,4 +1,5 @@
-import { IsBoolean, IsNotEmpty, IsString } from 'class-validator';
+import { IsBoolean, IsNotEmpty, IsString, Validate } from 'class-validator';
+import { IsFalse } from 'src/validators/task/validator-is-false';
 
 export class CreateTaskDto {
   @IsString({ message: 'Nome deve ser uma string' })
@@ -11,5 +12,6 @@ export class CreateTaskDto {
 
   @IsBoolean({ message: 'Status deve ser do tipo boolean' })
   @IsNotEmpty({ message: 'Status não pode ser vazio' })
+  @Validate(IsFalse)
   status: boolean;
 }
