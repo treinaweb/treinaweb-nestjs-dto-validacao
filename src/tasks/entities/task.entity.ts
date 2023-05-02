@@ -13,4 +13,7 @@ export class Task {
 
   @Column({ nullable: false })
   status: boolean;
+
+  @Column()
+  email: string;
 }

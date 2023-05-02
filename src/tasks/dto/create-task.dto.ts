@@ -1,4 +1,11 @@
-import { IsBoolean, IsNotEmpty, IsString, Validate } from 'class-validator';
+import {
+  IsBoolean,
+  IsEmail,
+  IsNotEmpty,
+  IsString,
+  Validate,
+} from 'class-validator';
+import { EmailExiste } from 'src/validators/task/validator-email';
 import { IsFalse } from 'src/validators/task/validator-is-false';
 
 export class CreateTaskDto {
@@ -14,4 +21,8 @@ export class CreateTaskDto {
   @IsNotEmpty({ message: 'Status não pode ser vazio' })
   @Validate(IsFalse)
   status: boolean;
+
+  @IsEmail()
+  @Validate(EmailExiste)
+  email: string;
 }

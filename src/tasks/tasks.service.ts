@@ -9,8 +9,13 @@ import { Task } from './entities/task.entity';
 export class TasksService {
   constructor(private tasks: TasksRepository) {}
   async create(createTaskDto: CreateTaskDto) {
-    const { nome, descricao, status } = createTaskDto;
-    const task = this.tasks.repository.create({ nome, descricao, status });
+    const { nome, descricao, status, email } = createTaskDto;
+    const task = this.tasks.repository.create({
+      nome,
+      descricao,
+      status,
+      email,
+    });
     await this.tasks.repository.save(task);
     return this.taskMapper(task);
   }
