@@ -5,7 +5,7 @@ import {
   IsString,
   Validate,
 } from 'class-validator';
-import { EmailExiste } from 'src/validators/task/validator-email';
+import { IsEmailAreadyExist } from 'src/validators/task/validator-email';
 import { IsFalse } from 'src/validators/task/validator-is-false';
 
 export class CreateTaskDto {
@@ -23,6 +23,6 @@ export class CreateTaskDto {
   status: boolean;
 
   @IsEmail()
-  @Validate(EmailExiste)
+  @IsEmailAreadyExist({ message: 'Email já existe (decorator)' })
   email: string;
 }

@@ -1,13 +1,10 @@
-import {
-  BadRequestException,
-  Inject,
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
+  ValidationOptions,
   ValidatorConstraint,
   ValidatorConstraintInterface,
+  registerDecorator,
 } from 'class-validator';
 import { Task } from 'src/tasks/entities/task.entity';
 import { Repository } from 'typeorm';
@@ -25,4 +22,16 @@ export class EmailExiste implements ValidatorConstraintInterface {
   defaultMessage(): string {
     return 'Email já existe';
   }
+}
+
+export function IsEmailAreadyExist(validationOptions?: ValidationOptions) {
+  return function (object: unknown, propertyName: string) {
+    registerDecorator({
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      constraints: [],
+      validator: EmailExiste,
+    });
+  };
 }
